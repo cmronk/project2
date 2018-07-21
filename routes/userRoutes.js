@@ -1,35 +1,33 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Get all stories
+  // Get all users
   app.get("/api/user", function(req, res) {
-    db.Storyboard.findAll({}).then(function(dbStoryboard) {
-      res.json(dbStoryboard);
+    db.User.findAll({}).then(function(dbUser) {
+      res.json(dbUser);
     });
   });
 
-  // Create a new story
+  // Create a new user
   app.post("/api/user", function(req, res) {
-    db.Storyboard.create(req.body).then(function(dbStoryboard) {
-      res.json(dbStoryboard);
+    db.User.create(req.body).then(function(dbUser) {
+      res.json(dbUser);
     });
   });
 
   app.put("/api/user", function(req, res) {
-    db.Storyboard.update(req.body, {
+    db.User.update(req.body, {
       where: {
         id: req.body.id
       }
-    }).then(function(dbStoryboard) {
-      res.json(dbStoryboard);
+    }).then(function(dbUser) {
+      res.json(dbUser);
     });
   });
-  // Delete a story by id
-  app.delete("/api/user/:id", function(req, res) {
-    db.Storyboard.destroy({ where: { id: req.params.id } }).then(function(
-      dbStoryboard
-    ) {
-      res.json(dbStoryboard);
+  // Delete a user by id
+  app.delete("/api/users/:id", function(req, res) {
+    db.User.destroy({ where: { id: req.params.id } }).then(function(dbUser) {
+      res.json(dbUser);
     });
   });
 };
