@@ -2,11 +2,24 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var sql = require("sql");
 
 var db = require("./models");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
+
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+users = [];
+connections = [];
+server.listen(process.env.PORT || 3000);
+
+app.get('/', function(req, res ){
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+)
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
