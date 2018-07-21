@@ -2,14 +2,15 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "exampledb",
-    "host": "localhost",
+    "database": "storyboardDB",
+    "host": "127.0.0.1",
+    "port": 8889,
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "root",
-    "database": "testdb",
+    "database": "storyboard",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false

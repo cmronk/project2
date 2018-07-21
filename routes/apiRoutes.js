@@ -26,9 +26,9 @@ module.exports = function(app) {
   });
   // Delete a story by id
   app.delete("/api/story/:id", function(req, res) {
-    db.Storyboard.destroy({ where: { id: req.params.id } }).then(function(
-      dbStoryboard
-    ) {
+    db.Storyboard.destroy({
+      where: { id: req.params.id }
+    }).then(function(dbStoryboard) {
       res.json(dbStoryboard);
     });
   });
