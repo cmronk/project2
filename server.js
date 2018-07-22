@@ -2,7 +2,7 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
-var sql = require("sql");
+var mysql = require("mysql");
 
 var db = require("./models");
 
@@ -14,12 +14,21 @@ var io = require('socket.io').listen(server);
 users = [];
 connections = [];
 server.listen(process.env.PORT || 3000);
+console.log('Server running....3000');
 
-app.get('/', function(req, res ){
+
+// socket.io
+app.get('/views', function(req, res ){
   res.sendFile(__dirname + '/views/index.html');
 });
 
-)
+io.sockets.on('connection', function(socket){
+  connections.push(socket);
+  console.log('Connected: %s sockets connected', connections.length);
+  //Disconnect
+  connections.splice(connections.indexOf(socket), 1);
+  console.log('Disconnected: %s sockets connected', connections.length);
+});
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,6 +47,7 @@ app.set("view engine", "handlebars");
 // Routes
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+require("./routes/userRoutes")(app);
 
 var syncOptions = { force: false };
 
