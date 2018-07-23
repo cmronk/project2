@@ -1,7 +1,8 @@
 {{!_____________________________________________________nav bar_______________________________________________________--}}
 <header>
     <div id="top">
-        <nav>
+        <div class="navbar-fixed">
+          <nav>
             <div class="nav-wrapper grey darken-4">
                 <a href="#top" class="brand-logo right">
                     <i class="material-icons">local_library</i>
@@ -25,15 +26,10 @@
                     <li>
                         <a href="#about">About</a>
                     </li>
-
-                    {{!--
-                    <li>
-                        <a href="#">Leaderboard</a>
-                    </li> --}}
-
                 </ul>
             </div>
-        </nav>
+          </nav> 
+         </div>
         <ul class="sidenav" id="mobile-demo">
             <!-- Modal Trigger -->
             <li>
@@ -47,11 +43,6 @@
             <li>
                 <a href="#about">About</a>
             </li>
-
-            {{!--
-            <li>
-                <a href="#">Leaderboard</a>
-            </li> --}}
         </ul>
     </div>
 </header>
@@ -64,48 +55,44 @@
             <div id="modal1" class="modal">
                 <div class="modal-content">
 
-
                     <h4>Please create an account to contribute.</h4>
 
                     <div class="row">
-                        <form class="col s12" id="add-user" action="POST">
+                        <form class="col s12" id="add-user" form id="signup" name="signup" method="post" action="/signup">
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input id="first_name" type="text" class="validate">
-                                    <i class="material-icons prefix">account_box</i>
-                                    <label for="first_name">First Name</label>
+                                  <i class="material-icons prefix">account_box</i>
+                                  <input id="first_name" type="text" class="validate">
+                                  <label for="first_name">First Name</label>
                                 </div>
-
                                 <div class="input-field col s6">
-                                    <input id="last_name" type="text" class="validate">
-                                    <i class="material-icons prefix">account_box</i>
-                                    <label for="last_name">Last Name</label>
+                                  <i class="material-icons prefix">account_box</i>
+                                  <input id="last_name" type="text" class="validate">
+                                  <label for="last_name">Last Name</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="password" type="password" class="validate">
-                                    <i class="material-icons prefix">more_horiz</i>
-                                    <label for="password">Password</label>
+                                  <i class="material-icons prefix">lock</i>
+                                  <input id="password" type="password" class="validate">
+                                  <label for="password">Password</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="email" type="email" class="validate">
-                                    <i class="material-icons prefix">mail</i>
-                                    <label for="email">Email</label>
+                                  <i class="material-icons prefix">mail</i>
+                                  <input id="email" type="email" class="validate">
+                                  <label for="email">Email</label>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button class="btn waves-effect waves-dark deep-purple darken-2" type="submit" name="action">Submit
+                            </div>                        
+                            <button class="btn waves-effect waves-dark deep-purple darken-2" type="submit">Create Account
                             <i class="material-icons right">send</i>
-                        </button>
-
+                            </button>
+                        </form>
+                        <div class="modal-footer ">
+                          <p class="center-align">Already have an account? <a href="/login">Login</a></p>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
@@ -115,48 +102,41 @@
             <blockquote red accent-4>
                 <h1 id="stories">Storyboard</h1>
             </blockquote>
-            {{!-- We will ultimately get this info from our user input and database --}}
-            <h4>Your Current Collaborators:</h4>
-            <hr>
-            <ul>
-                {{!-- {{#each}} {{/each}} --}}
-                <h5>
-                    <li>PeterPeterPeter.</li>
-                    <li>Brian.</li>
-                    <li>Brandon.</li>
-                    <li>Luis.</li>
-                    <li>Christine.</li>
-                </h5>
-            </ul>
-
             <!-- Figure out how we want this displayed -->
             {{!_________________________________________user input modal_________________________________________________--}}
             <!-- Modal Trigger -->
-            <div class="center-align">
+            <div class="actions">
                 <a class="waves-effect waves-light btn modal-trigger grey darken-2" href="#modal2">
                     <i class="material-icons left">create</i>Create All</a>
-                <a class="waves-effect waves-light btn grey darken-1">
+                <a class="waves-effect waves-light btn modal-trigger grey darken-1" href="#modal3">
                     <i class="material-icons left">face</i>Create Character</a>
-                <a class="waves-effect waves-light btn grey">
+                <a class="waves-effect waves-light btn modal-trigger grey" href="#modal4">
                     <i class="material-icons left">collections_bookmark</i>Create plotline</a>
-                <a class="waves-effect waves-light btn grey lighten-1">
-                    <i class="material-icons left">content_cut</i>Edit</a>
-                <a class="waves-effect waves-light btn grey lighten-2">
-                    <i class="material-icons left">delete</i>Delete</a>
-
             </div>
-
-            <!-- Modal Structure -->
+      
+            {{!-- We will ultimately get this info from our user input and database --}}
+            <h4>Your Current Characters:</h4>
+            <hr>
+            <ul>
+              {{!-- this Users table won't render until we have an api route for Users like we do for Storyboards --}}
+              {{#each Storyboards}}
+                <li>
+                    <h5><span class="label"></span> {{this.characterList}}</h5>
+                    {{!-- <h5><span class="label"></span> {{this.username}}</h5> --}}
+                </li>
+              {{/each}}
+            </ul>
+            <!-- Modal 2 Structure -->            
             <div id="modal2" class="modal">
                 <div class="modal-content">
                     <h4>Let's begin!</h4>
 
                     <div class="row">
-                        <form class="col s12" id="add-story">
+                        <form class="col s12" class="add-story">
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">art_track</i>
-                                    <select class="icons">
+                                    <select class="icons genre">
                                         <option value="" disabled selected>Choose your genre.</option>
                                         <option value="Sci-Fi" data-icon="img/scifi.jpg">Sci-Fi</option>
                                         <option value="Classics" data-icon="img/art.jpg">Classics</option>
@@ -168,121 +148,125 @@
                                     <label>Genre</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="character" type="text" data-length="20" class="validate">
-                                    <i class="material-icons prefix">face</i>
-                                    <label for="character">Character Name</label>
+                                  <i class="material-icons prefix">face</i>
+                                  <input class="character" type="text" data-length="20" class="validate">
+                                  <label for="character">Character Name</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="role" type="text" data-length="20" class="validate">
-                                    <i class="material-icons prefix">assignment_ind</i>
-                                    <label for="role">Role</label>
+                                  <i class="material-icons prefix">assignment_ind</i>
+                                  <input class="role" type="text" data-length="20" class="validate">
+                                  <label for="role">Role</label>
                                 </div>
-
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">mode_edit</i>
-                                    <label for="storyline">Write your story.</label>
-                                    <textarea id="storyline" class="materialize-textarea" data-length="300"></textarea>
+                                  <i class="material-icons prefix">camera_alt</i>
+                                  <label for="imgurl">URL Picture of Character</label>
+                                  <textarea class="imgurl" class="materialize-textarea"></textarea>
                                 </div>
-
+                                <div class="input-field col s12">
+                                  <i class="material-icons prefix">mode_edit</i>
+                                  <label for="storyline">Write your story.</label>
+                                  <textarea class="storyline" class="materialize-textarea" data-length="300"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn modal-action modal-close waves-effect waves-dark deep-purple darken-2" type="submit" id="create">Add Story Now.
+                                  <i class="material-icons right">send</i>
+                              </button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn waves-effect waves-dark deep-purple darken-2" type="submit" name="action">Add Story Now.
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-            </div>
+            </div>            
 
-            <h4>Chosen Genre: Mystery</h4>
-            <span id="chosen-genre"></span>
+            <!-- Modal 3 Structure -->
+            <div id="modal3" class="modal">
+                <div class="modal-content">
+                    <h4>Let's begin!</h4>
+                    <div class="row">
+                        <form class="col s12" class="add-character">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                  <i class="material-icons prefix">face</i>
+                                  <input class="character" type="text" data-length="20" class="validate">
+                                  <label for="character">Character Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                  <i class="material-icons prefix">assignment_ind</i>
+                                  <input class="role" type="text" data-length="20" class="validate">
+                                  <label for="role">Role</label>
+                                </div>
+                                <div class="input-field col s12">
+                                  <i class="material-icons prefix">camera_alt</i>
+                                  <label for="imgurl">URL Picture of Character</label>
+                                  <textarea class="imgurl" class="materialize-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn modal-action modal-close waves-effect waves-dark deep-purple darken-2" id="create-char" type="submit">Add Story Now.
+                                  <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>            
+
+            <!-- Modal 4 Structure -->
+            <div id="modal4" class="modal">
+                <div class="modal-content">
+                    <h4>Let's begin!</h4>
+                    <div class="row">
+                        <form class="col s12" class="add-story">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                  <i class="material-icons prefix">mode_edit</i>
+                                  <label for="storyline">Write your story.</label>
+                                  <textarea class="storyline" class="materialize-textarea" data-length="300"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button class="btn modal-action modal-close waves-effect waves-dark deep-purple darken-2" id="add-only-story" type="submit">Add Story Now.
+                                  <i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>            
+
+            <h4>Chosen Genre: <span id="chosen-genre"></span></h4>
 
             <h3>Current Story</h3>
             <hr>
-            <ul id="example-list" class="list-group">
-                {{#each examples}}
-                <li data-id="{{this.id}}" class="list-group-item">
-                    <a href="example/{{this.id}}">{{this.text}}</a>
-                    <button class="btn btn-danger float-right delete">ｘ</button>
-                </li>
-                {{/each}}
-            </ul>
+              {{#each Storyboards}} 
+                {{!-- <h5><span class="label">Hello, my name is  </span> {{this.characterList}}.</h5> --}}
+                </h5><img src="{{this.imageurl}}" height=300 width=400>
+                <h5>{{this.story}}.</h5>
+                <p>And then...</p>
+              {{/each}}
 
-            {{!-- we will get all this input from user and db eventually --}}
-            <h5>Once upon a time in a galaxy far away...</h5>
-            <span id="images">
-                <!-- test image for now... will get this from db-->
-                <img src="img/chewy.png" height=300 width=400>
-            </span>
-            <h5>
-                then...
-            </h5>
-            <h5>
-                Lorem ipsum dolor amet small batch air plant adaptogen, asymmetrical pickled af chicharrones slow-carb palo santo taiyaki
-                scenester chillwave readymade wayfarers. Organic adaptogen messenger bag small batch intelligentsia. Migas
-                vice intelligentsia, schlitz prism mustache iceland street art vexillologist. Disrupt pug deep v, irony roof
-                party swag authentic intelligentsia yr. Bespoke live-edge kale chips four loko cloud bread hexagon. Biodiesel
-                street art next level crucifix humblebrag stumptown tbh waistcoat hella vinyl. Biodiesel cronut bicycle rights,
-                tofu master cleanse neutra godard 3 wolf moon.
-            </h5>
-            <h5>
-                after awhile...
-            </h5>
-            <h5>
-                Fashion axe glossier cray, twee typewriter plaid ethical shabby chic mumblecore. Single-origin coffee fam gastropub woke.
-                Taiyaki biodiesel viral, cred letterpress heirloom neutra synth lumbersexual 90's mumblecore franzen man
-                bun actually succulents. Live-edge jean shorts schlitz, letterpress umami listicle crucifix direct trade
-                YOLO etsy pork belly cray. Tattooed pug jianbing normcore kogi semiotics. Hella af copper mug lumbersexual
-                hoodie wolf. +1 kitsch blue bottle vegan pop-up offal post-ironic kale chips neutra truffaut try-hard seitan.
-
-            </h5>
             <br>
-            <div class="center-align">
-                <a class="waves-effect waves-light btn-large grey darken-2">
+            <div class="feedback">
+                <a class="waves-effect waves-light btn grey darken-2">
                     <i class="material-icons left">thumb_up</i>Like this?</a>
-                <a class="waves-effect waves-light btn-large grey darken-2">
+                <a class="waves-effect waves-light btn grey darken-2">
                     <i class="material-icons left">thumb_down</i>Not a fan?</a>
             </div>
 
             <h3>Previous Stories</h3>
             <hr> {{!-- we will get all this input from user and db eventually --}}
-            <h5>Once upon a time in a galaxy far away...</h5>
-            <span id="images">
-                <!-- test image for now... will get this from db-->
-                <img src="img/scifi.jpg" height=300 width=400>
-            </span>
-            <h5>
-                then...
-            </h5>
-            <h5>
-                Lorem ipsum dolor amet small batch air plant adaptogen, asymmetrical pickled af chicharrones slow-carb palo santo taiyaki
-                scenester chillwave readymade wayfarers. Organic adaptogen messenger bag small batch intelligentsia. Migas
-                vice intelligentsia, schlitz prism mustache iceland street art vexillologist. Disrupt pug deep v, irony roof
-                party swag authentic intelligentsia yr. Bespoke live-edge kale chips four loko cloud bread hexagon. Biodiesel
-                street art next level crucifix humblebrag stumptown tbh waistcoat hella vinyl. Biodiesel cronut bicycle rights,
-                tofu master cleanse neutra godard 3 wolf moon.
-            </h5>
-            </h5>
-            <br>
-            <div class="center-align">
-                <a class="waves-effect waves-light btn-large grey darken-2">
-                    <i class="material-icons left">thumb_up</i>Like this?</a>
-                <a class="waves-effect waves-light btn-large grey darken-2">
-                    <i class="material-icons left">thumb_down</i>Not a fan?</a>
-            </div>
         </div>
 
 
         {{!_________________________________________________genre sidebar_______________________________________________________--}}
         <div class="col s12 m4 l3">
-            <h4 id="genre">
+            <h4 id="genres">
                 Genres & Inspiration
             </h4>
 
             <div class="card teal lighten-2">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/scifi.jpg" height="220" width="310">
+                    <img class="activator" src="img/scifi.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Sci-Fi
@@ -300,7 +284,7 @@
             </div>
             <div class="card light-green lighten-3">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/art.jpg" height="220" width="310">
+                    <img class="activator" src="img/art.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Classics
@@ -318,7 +302,7 @@
             </div>
             <div class="card yellow lighten-3">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/mystery.jpeg" height="220" width="310">
+                    <img class="activator" src="img/mystery.jpeg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Mystery
@@ -336,7 +320,7 @@
             </div>
             <div class="card orange darken-1">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/kids.jpg" height="220" width="310">
+                    <img class="activator" src="img/kids.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Kids
@@ -354,7 +338,7 @@
             </div>
             <div class="card red darken-1">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/history.jpg" height="220" width="310">
+                    <img class="activator" src="img/history.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">History
@@ -372,7 +356,7 @@
             </div>
             <div class="card pink lighten-3">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/main.jpeg" height="220" width="310">
+                    <img class="activator" src="img/main.jpeg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Other
@@ -391,7 +375,6 @@
         </div>
     </div>
     {{!_________________________________________________about section_______________________________________________________--}}
-    <!-- i don't really like these images so far... -->
     <div class="parallax-container">
         <div class="parallax">
             <img src="img/background.jpeg">
@@ -432,13 +415,86 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <script>
-    // this functions for the materialize navbar, scrolling backgrounds in about section and the form 
+    // this functions is for the materialize navbar, scrolling backgrounds in about section and the form 
     $(document).ready(function () {
         $(".modal").modal();
+        $(".modal1").modal();
         $(".modal2").modal();
+        $(".modal3").modal();
+        $(".modal4").modal();
+        $(".modal5").modal();
+        $(".modal6").modal();
         $(".parallax").parallax();
         $(".sidenav").sidenav();
-        $("select").formSelect();
-    });
+        $('select').formSelect();
+    }); 
 
+        // When user clicks add-btn- this works fully! :D
+        $("#create").on("click", function (event) {
+            event.preventDefault();
+
+            //setting genre in html
+            var genre = $(".genre").val();
+            $("#chosen-genre").text(genre);
+            console.log(genre);
+
+            // Make a newStoryline object
+            var newStoryline = {
+                //genre: $(".genre").val(),
+                characterList: $(".character").val().trim(),
+                //role: $(".role").val().trim(),
+                imageurl: $(".imgurl").val().trim(),
+                story: $(".storyline").val().trim()
+            };
+              // Send an AJAX POST-request with jQuery
+            $.post("/api/story", newStoryline)
+                // On success, run the following code
+                .then(function(data) {
+                // Log the data we found
+                console.log(data);
+            });
+        });
+
+        // When user clicks add-character-btn- this does not work :(
+        $("#create-char").on("click", function (event) {
+            event.preventDefault();
+
+            // Make a newBook object
+            var newStoryline = {
+                //genre: $(".genre").val(),
+                characterList: $(".character").val().trim(),
+                //role: $(".role").val().trim(),
+                imageurl: $(".imgurl").val().trim(),
+                //story: $(".storyline").val().trim()
+            };
+            console.log(newStoryline);
+              // Send an AJAX POST-request with jQuery
+            $.post("/api/story", newStoryline)
+                // On success, run the following code
+                .then(function(data) {
+                // Log the data we found
+                console.log(data);
+            });
+        });
+
+        // When user clicks add-story-btn
+        $("#add-only-story").on("click", function (event) {
+            event.preventDefault();
+
+            // Make a newBook object
+            var newStoryline = {
+                //genre: $(".genre").val(),
+                //characterList: $(".character").val().trim(),
+                //role: $(".role").val().trim(),
+                //imageurl: $(".imgurl").val().trim(),
+                story: $(".storyline").val().trim()
+            };
+              // Send an AJAX POST-request with jQuery
+            $.post("/api/story", newStoryline)
+                // On success, run the following code
+                .then(function(data) {
+                // Log the data we found
+                console.log(data);
+            });
+        });
 </script>
