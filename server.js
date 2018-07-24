@@ -9,6 +9,27 @@ var db = require("./models");
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+users = [];
+connections = [];
+server.listen(process.env.PORT || 3000);
+console.log('Server running....3000');
+
+
+// socket.io
+app.get('/views', function(req, res ){
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+io.sockets.on('connection', function(socket){
+  connections.push(socket);
+  console.log('Connected: %s sockets connected', connections.length);
+  //Disconnect
+  connections.splice(connections.indexOf(socket), 1);
+  console.log('Disconnected: %s sockets connected', connections.length);
+});
+
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

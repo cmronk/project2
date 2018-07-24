@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS storyboardDb;
 CREATE DATABASE storyboardDB;
 
+
 SET SESSION innodb_strict_mode = ON;
 SET GLOBAL innodb_file_format = "Barracuda";
 SET GLOBAL innodb_file_per_table=1;
@@ -14,7 +15,9 @@ CREATE TABLE user (
     email VARCHAR(30) NOT NULL,
     password VARCHAR (30) NOT NULL,
     PRIMARY KEY (id)
+
     )ENGINE=InnoDB;
+
     
 USE storyboardDB;
 
@@ -22,6 +25,7 @@ CREATE TABLE story (
 	characterlist VARCHAR(30) NULL,
     imageurl VARCHAR(30) NULL,
     story VARCHAR(300) NULL,
+
     date TIMESTAMP) ENGINE=InnoDB;
 
     
